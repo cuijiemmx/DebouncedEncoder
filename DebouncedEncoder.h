@@ -27,21 +27,25 @@ public:
     }
 
     void loop() {
-        int a = digitalRead(pinA);
-        int b = digitalRead(pinB);
+    	while (true) {
+	        int a = digitalRead(pinA);
+	        int b = digitalRead(pinB);
 
-        if (flag == false && a == LOW) {
-            lastB = b;
-            flag = true;
-        }
-        if (flag == true && a == HIGH) {
-            if (b == HIGH && lastB == LOW) {
-                if (right_cb != NULL) right_cb(*this);
-            }
-            if (b == LOW && lastB == HIGH) {
-                if (left_cb != NULL) left_cb(*this);
-            }
-            flag = false;
+            if (flag == false && a == LOW) {
+	            lastB = b;
+	            flag = true;
+	        }
+	        if (flag == true && a == HIGH) {
+	            if (b == HIGH && lastB == LOW) {
+	                if (right_cb != NULL) right_cb(*this);
+	            }
+	            if (b == LOW && lastB == HIGH) {
+	                if (left_cb != NULL) left_cb(*this);
+	            }
+	            flag = false;
+	        }
+
+	        if (!flag) break;
         }
     }
 };
